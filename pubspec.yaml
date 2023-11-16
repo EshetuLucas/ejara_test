@@ -44,6 +44,11 @@ dependencies:
   freezed_annotation:
   json_annotation:
 
+
+
+  # api
+  dio:
+
   flutter_dotenv:
 
 dev_dependencies:
