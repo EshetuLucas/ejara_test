@@ -21,5 +21,6 @@ import 'package:stacked_services/stacked_services.dart';
     StackedBottomsheet(classType: NoticeSheet),
     // @stacked-bottom-sheet
   ],
+  logger: StackedLogger(),
 )
 class App {}
