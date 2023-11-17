@@ -1,3 +1,4 @@
+import 'package:ejara_test/data_model/payment_method/payment_method.dart';
 import 'package:ejara_test/ui/common/app_colors.dart';
 import 'package:ejara_test/ui/common/app_text_styles.dart';
 import 'package:ejara_test/ui/common/ui_helpers.dart';
@@ -10,7 +11,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class NewPaymentSettingView extends StatelessWidget {
-  const NewPaymentSettingView({Key? key}) : super(key: key);
+  const NewPaymentSettingView({
+    Key? key,
+    required this.paymentMethod,
+  }) : super(key: key);
+
+  final PaymentMethodModel paymentMethod;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +38,7 @@ class NewPaymentSettingView extends StatelessWidget {
               verticalSpace(20),
               Center(
                 child: Text(
-                  'New Mobile money',
+                  'New ${paymentMethod.title_en}',
                   style:
                       ktsLargBold.copyWith(color: kcPrimaryColor, fontSize: 26),
                   textAlign: TextAlign.center,
