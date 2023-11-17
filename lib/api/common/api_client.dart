@@ -92,8 +92,6 @@ class ApiClient {
         return data = PaymentMethodModel.fromJson(data);
       case PaymentSettingModel:
         return data = PaymentSettingModel.fromJson(data);
-
-      // default:
     }
   }
 
@@ -186,7 +184,7 @@ class ApiClient {
         return listRawDataToModel<T>(data,
             key: key, additionalKey: additionalKey);
       } else {
-        throw ApiErrorHandler.handleError(response);
+        throw ApiErrorHandler.handleError(response.statusCode);
       }
     } catch (e) {
       log.e('Something went wrong: $e');
@@ -211,7 +209,7 @@ class ApiClient {
         log.v('data:$data');
         return assignType<T>(data);
       } else {
-        throw ApiErrorHandler.handleError(response);
+        throw ApiErrorHandler.handleError(response.statusCode);
       }
     } catch (e) {
       log.e('Something went wrong: $e');

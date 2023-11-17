@@ -8,9 +8,28 @@ This class is the last layer of communication with the API, and it handles all A
 
         ```
         ApiClient({this.headers}) {
-            dio.options.headers = headers;
-            dio.options.headers.putIfAbsent("Content-Type", () => "application/json");
+            setHeader(header: header);
         }
+
+   void setHeader({Map<String, String>? header}) {
+    String authorization = 'Bearer ' + _userService.token;
+    headers = header ??
+        {
+          if (_userService.hasUser) "authorization": authorization,
+          "content-type": "application/json",
+          "api-key": apiKey,
+          "client-id": clientId,
+          "app-version": appVersion,
+          "app-platform": appPlatform,
+          "client": client,
+          "accept-language": "en",
+        };
+    dio.options.headers = headers;
+    dio.options.headers.putIfAbsent(
+      "Content-Type",
+      () => "application/json",
+    );
+  }
 
         ```
 
@@ -59,10 +78,10 @@ If the API request is successful, the handler function calls the assignType() fu
             ```
             assignType<T>(var data) {
                 switch (T) {
-                case Dogs:
-                    return data = Dogs.fromJson(data);
+                case User:
+                    return data = UserModel.fromJson(data);
                 case Breeds:
-                    return data = Breeds.fromJson(data);
+                    return data = UserModel.fromJson(data);
 
                 default:
                 }
