@@ -27,6 +27,7 @@ mixin GetApis {
         );
     return await apiClient.getList<PaymentSettingModel>(
       paymentSettingsUrl,
+      key: 'data',
     );
   }
 

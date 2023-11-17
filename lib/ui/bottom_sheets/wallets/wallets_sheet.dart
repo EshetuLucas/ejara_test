@@ -119,7 +119,11 @@ class WalletsSheet extends StatelessWidget {
                   child: AppButton(
                     enabled: viewModel.hasSelectedPaymentSetting,
                     title: 'Confirm',
-                    onTap: viewModel.onConfirm,
+                    onTap: () => completer?.call(
+                      (SheetResponse(
+                        data: viewModel.selectedPaymentSetting,
+                      )),
+                    ),
                   ),
                 ),
                 verticalSpaceTiny

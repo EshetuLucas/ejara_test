@@ -35,6 +35,7 @@ class NotFoundWidget extends StatelessWidget {
                   style: ktsMedium.copyWith(color: kcPrimaryColor),
                   textAlign: TextAlign.center,
                 ),
+                verticalSpaceSmall,
                 const Icon(
                   Icons.refresh_outlined,
                   color: kcPrimaryColor,

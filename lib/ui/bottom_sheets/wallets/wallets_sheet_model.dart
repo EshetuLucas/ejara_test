@@ -19,6 +19,7 @@ class WalletsSheetModel extends ChangeNotifier {
   bool get isBusy => _isBusy;
 
   PaymentSettingModel? _selectedPaymentSetting;
+  PaymentSettingModel get selectedPaymentSetting => _selectedPaymentSetting!;
   bool get hasSelectedPaymentSetting => _selectedPaymentSetting != null;
 
   bool isPaymentSettingSelected(int paymentSettingId) =>

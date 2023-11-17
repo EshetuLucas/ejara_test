@@ -56,11 +56,15 @@ class HomeViewModel extends ChangeNotifier {
   Future<void> showBottomSheet(int paymentMethodindex) async {
     PaymentMethodModel paymentMethod = _paymentMethods[paymentMethodindex];
 
-    await _bottomSheetService.showCustomSheet(
+    final result = await _bottomSheetService.showCustomSheet(
       variant: BottomSheetType.wallets,
       title: paymentMethod.title_en.toLowerCase(),
       description: paymentMethod.id.toString(),
       data: paymentMethod,
     );
+
+    if (result?.data == null) return;
+
+    // Use the returned data here
   }
 }
