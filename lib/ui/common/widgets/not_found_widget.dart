@@ -1,7 +1,6 @@
 import 'package:ejara_test/ui/common/app_colors.dart';
 import 'package:ejara_test/ui/common/app_text_styles.dart';
 import 'package:ejara_test/ui/common/ui_helpers.dart';
-import 'package:ejara_test/ui/common/widgets/app_button.dart';
 import 'package:flutter/material.dart';
 
 class NotFoundWidget extends StatelessWidget {
@@ -30,14 +29,11 @@ class NotFoundWidget extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               if (onTap != null) ...[
-                AbsorbPointer(
-                  absorbing: true,
-                  child: AppButton(
-                    isOutlined: true,
-                    textColor: kcPrimaryColor,
-                    title: 'Tap to Try Again!',
-                    onTap: onTap ?? () => {},
-                  ),
+                verticalSpaceTiny,
+                Text(
+                  'Tap to try again',
+                  style: ktsMedium.copyWith(color: kcPrimaryColor),
+                  textAlign: TextAlign.center,
                 ),
                 const Icon(
                   Icons.refresh_outlined,
