@@ -1,6 +1,5 @@
 import 'package:ejara_test/api/user/user_apis.dart';
 import 'package:ejara_test/services/user_service.dart';
-import 'package:ejara_test/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:ejara_test/ui/views/home/home_view.dart';
 import 'package:ejara_test/ui/views/login/login_view.dart';
 import 'package:ejara_test/ui/views/startup/startup_view.dart';
@@ -31,7 +30,6 @@ import 'package:ejara_test/ui/bottom_sheets/wallets/wallets_sheet.dart';
     LazySingleton(classType: PaymentService),
   ],
   bottomsheets: [
-    StackedBottomsheet(classType: NoticeSheet),
     StackedBottomsheet(classType: WalletsSheet),
 // @stacked-bottom-sheet
   ],
