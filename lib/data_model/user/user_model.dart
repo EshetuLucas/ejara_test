@@ -9,17 +9,8 @@ class UserModel with _$UserModel {
   // ignore: invalid_annotation_target
   @JsonSerializable(explicitToJson: true)
   factory UserModel({
-    /// User id [required]
-    required String id,
-
-    /// User email [optional]
-    String? email,
-
-    /// User phone [optional]
-    String? phone,
-
-    /// User profile pic if any
-    String? profilePicUrl,
+    /// User token
+    required String token,
 
     /// Created at date and time for this user
     DateTime? createdAt,

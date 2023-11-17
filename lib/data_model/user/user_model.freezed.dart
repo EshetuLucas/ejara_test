@@ -20,17 +20,8 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserModel {
-  /// User id [required]
-  String get id => throw _privateConstructorUsedError;
-
-  /// User email [optional]
-  String? get email => throw _privateConstructorUsedError;
-
-  /// User phone [optional]
-  String? get phone => throw _privateConstructorUsedError;
-
-  /// User profile pic if any
-  String? get profilePicUrl => throw _privateConstructorUsedError;
+  /// User token
+  String get token => throw _privateConstructorUsedError;
 
   /// Created at date and time for this user
   DateTime? get createdAt => throw _privateConstructorUsedError;
@@ -46,12 +37,7 @@ abstract class $UserModelCopyWith<$Res> {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
-  $Res call(
-      {String id,
-      String? email,
-      String? phone,
-      String? profilePicUrl,
-      DateTime? createdAt});
+  $Res call({String token, DateTime? createdAt});
 }
 
 /// @nodoc
@@ -67,29 +53,14 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? email = freezed,
-    Object? phone = freezed,
-    Object? profilePicUrl = freezed,
+    Object? token = null,
     Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      token: null == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
               as String,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      phone: freezed == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      profilePicUrl: freezed == profilePicUrl
-          ? _value.profilePicUrl
-          : profilePicUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -106,12 +77,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
       __$$UserModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String? email,
-      String? phone,
-      String? profilePicUrl,
-      DateTime? createdAt});
+  $Res call({String token, DateTime? createdAt});
 }
 
 /// @nodoc
@@ -125,29 +91,14 @@ class __$$UserModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? email = freezed,
-    Object? phone = freezed,
-    Object? profilePicUrl = freezed,
+    Object? token = null,
     Object? createdAt = freezed,
   }) {
     return _then(_$UserModelImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      token: null == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
               as String,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      phone: freezed == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      profilePicUrl: freezed == profilePicUrl
-          ? _value.profilePicUrl
-          : profilePicUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -160,32 +111,14 @@ class __$$UserModelImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$UserModelImpl extends _UserModel {
-  _$UserModelImpl(
-      {required this.id,
-      this.email,
-      this.phone,
-      this.profilePicUrl,
-      this.createdAt})
-      : super._();
+  _$UserModelImpl({required this.token, this.createdAt}) : super._();
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserModelImplFromJson(json);
 
-  /// User id [required]
+  /// User token
   @override
-  final String id;
-
-  /// User email [optional]
-  @override
-  final String? email;
-
-  /// User phone [optional]
-  @override
-  final String? phone;
-
-  /// User profile pic if any
-  @override
-  final String? profilePicUrl;
+  final String token;
 
   /// Created at date and time for this user
   @override
@@ -193,7 +126,7 @@ class _$UserModelImpl extends _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, email: $email, phone: $phone, profilePicUrl: $profilePicUrl, createdAt: $createdAt)';
+    return 'UserModel(token: $token, createdAt: $createdAt)';
   }
 
   @override
@@ -201,19 +134,14 @@ class _$UserModelImpl extends _UserModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.phone, phone) || other.phone == phone) &&
-            (identical(other.profilePicUrl, profilePicUrl) ||
-                other.profilePicUrl == profilePicUrl) &&
+            (identical(other.token, token) || other.token == token) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, email, phone, profilePicUrl, createdAt);
+  int get hashCode => Object.hash(runtimeType, token, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -230,12 +158,8 @@ class _$UserModelImpl extends _UserModel {
 }
 
 abstract class _UserModel extends UserModel {
-  factory _UserModel(
-      {required final String id,
-      final String? email,
-      final String? phone,
-      final String? profilePicUrl,
-      final DateTime? createdAt}) = _$UserModelImpl;
+  factory _UserModel({required final String token, final DateTime? createdAt}) =
+      _$UserModelImpl;
   _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
@@ -243,20 +167,8 @@ abstract class _UserModel extends UserModel {
 
   @override
 
-  /// User id [required]
-  String get id;
-  @override
-
-  /// User email [optional]
-  String? get email;
-  @override
-
-  /// User phone [optional]
-  String? get phone;
-  @override
-
-  /// User profile pic if any
-  String? get profilePicUrl;
+  /// User token
+  String get token;
   @override
 
   /// Created at date and time for this user
