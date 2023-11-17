@@ -1,5 +1,6 @@
 import 'package:ejara_test/ui/common/app_text_styles.dart';
 import 'package:ejara_test/ui/common/widgets/icon_builder.dart';
+import 'package:ejara_test/ui/common/widgets/stateful_wrapper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,13 +18,16 @@ class HomeView extends StatelessWidget {
   ) {
     final viewModel = Provider.of<HomeViewModel>(context, listen: true);
 
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: appSymmetricHorizontalPadding,
-          child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [_PaymentMethod(), _SelectPaymentMethods()],
+    return StatefulWrapper(
+      onInit: viewModel.onInit,
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: appSymmetricHorizontalPadding,
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [_PaymentMethod(), _SelectPaymentMethods()],
+            ),
           ),
         ),
       ),
