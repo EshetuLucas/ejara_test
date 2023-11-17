@@ -12,13 +12,16 @@ class UserService {
 
   UserModel? _currentUser;
   UserModel get currentUser => _currentUser!;
+  String get token => _currentUser?.token ?? '';
 
   Future<void> login({
     required String userName,
     required String password,
   }) async {
-    final result =
-        await _userApis.login(userName: userName, password: password);
+    final result = await _userApis.login(
+      userName: userName,
+      password: password,
+    );
     setCurrentUser(result);
   }
 
