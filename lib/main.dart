@@ -1,8 +1,5 @@
 import 'package:ejara_test/app/app.bottomsheets.dart';
-import 'package:ejara_test/ui/bottom_sheets/wallets/wallets_sheet_model.dart';
-import 'package:ejara_test/ui/views/home/home_viewmodel.dart';
-import 'package:ejara_test/ui/views/login/login_viewmodel.dart';
-import 'package:ejara_test/ui/views/new_payment_setting/new_payment_setting_viewmodel.dart';
+import 'package:ejara_test/ui/views/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:ejara_test/app/app.locator.dart';
 import 'package:ejara_test/app/app.router.dart';
@@ -24,24 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          lazy: false,
-          create: (context) => HomeViewModel(),
-        ),
-        ChangeNotifierProvider(
-          lazy: false,
-          create: (context) => LoginViewModel(),
-        ),
-        ChangeNotifierProvider(
-          lazy: false,
-          create: (context) => WalletsSheetModel(),
-        ),
-        ChangeNotifierProvider(
-          lazy: false,
-          create: (context) => NewPaymentSettingViewModel(),
-        )
-      ],
+      providers: providers,
       child: MaterialApp(
         theme: Theme.of(context).copyWith(
           scaffoldBackgroundColor: kcBackgroundColor,
