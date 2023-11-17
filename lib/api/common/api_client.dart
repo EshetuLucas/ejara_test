@@ -15,8 +15,12 @@ class ApiClient {
   final Dio dio = Dio(BaseOptions(baseUrl: ''));
   Map<String, String>? headers;
 
-  Future<void> setHeader({Map<String, String>? header}) async {
-    String authorization = 'Bearer ' + _userService.currentUser.id;
+  ApiClient({Map<String, String>? header}) {
+    setHeader(header: header);
+  }
+
+  void setHeader({Map<String, String>? header}) {
+    String authorization = 'Bearer ' + _userService.token;
     headers = header ??
         {
           if (_userService.hasUser) "authorization": authorization,
@@ -25,7 +29,8 @@ class ApiClient {
           "client-id": clientId,
           "app-version": appVersion,
           "app-platform": appPlatform,
-          'client': client
+          "client": client,
+          "accept-language": "en",
         };
     dio.options.headers = headers;
     dio.options.headers.putIfAbsent(
@@ -99,7 +104,9 @@ class ApiClient {
     String? modelKey,
     Options? options,
   }) async {
+    setHeader();
     log.i('endPoint:$endPoint');
+    log.i('headers:$headers');
 
     final request = dio.get(endPoint,
         options: options ??
