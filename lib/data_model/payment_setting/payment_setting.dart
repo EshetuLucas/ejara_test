@@ -21,4 +21,10 @@ class PaymentSettingModel with _$PaymentSettingModel {
 List<PaymentSettingModel> get fakePaymentSettings => [
       PaymentSettingModel(
           id: 1, title_en: 'Orange Money', description_en: '979799'),
+      PaymentSettingModel(
+          id: 2, title_en: 'Orange Money', description_en: '979799'),
+      PaymentSettingModel(
+          id: 3, title_en: 'Orange Money', description_en: '979799'),
+      PaymentSettingModel(
+          id: 4, title_en: 'Orange Money', description_en: '979799'),
     ];
