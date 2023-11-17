@@ -73,7 +73,7 @@ class _SelectPaymentMethods extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             final paymentMethod = viewModel.paymentMethods[index];
             return InkWell(
-              onTap: () => viewModel.showBottomSheet(index),
+              onTap: () => viewModel.showBottomSheet(paymentMethod),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: Row(
