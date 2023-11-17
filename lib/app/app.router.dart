@@ -6,20 +6,24 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:ejara_test/ui/views/home/home_view.dart' as _i2;
+import 'package:ejara_test/ui/views/login/login_view.dart' as _i4;
 import 'package:ejara_test/ui/views/startup/startup_view.dart' as _i3;
-import 'package:flutter/material.dart' as _i4;
+import 'package:flutter/material.dart' as _i5;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i5;
+import 'package:stacked_services/stacked_services.dart' as _i6;
 
 class Routes {
   static const homeView = '/home-view';
 
-  static const startupView = '/startup-view';
+  static const starupView = '/starup-view';
+
+  static const loginView = '/login-view';
 
   static const all = <String>{
     homeView,
-    startupView,
+    starupView,
+    loginView,
   };
 }
 
@@ -30,21 +34,31 @@ class StackedRouter extends _i1.RouterBase {
       page: _i2.HomeView,
     ),
     _i1.RouteDef(
-      Routes.startupView,
-      page: _i3.StartupView,
+      Routes.starupView,
+      page: _i3.StarupView,
+    ),
+    _i1.RouteDef(
+      Routes.loginView,
+      page: _i4.LoginView,
     ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.HomeView: (data) {
-      return _i4.MaterialPageRoute<dynamic>(
+      return _i5.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.HomeView(),
         settings: data,
       );
     },
-    _i3.StartupView: (data) {
-      return _i4.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i3.StartupView(),
+    _i3.StarupView: (data) {
+      return _i5.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i3.StarupView(),
+        settings: data,
+      );
+    },
+    _i4.LoginView: (data) {
+      return _i5.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i4.LoginView(),
         settings: data,
       );
     },
@@ -57,7 +71,7 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-extension NavigatorStateExtension on _i5.NavigationService {
+extension NavigatorStateExtension on _i6.NavigationService {
   Future<dynamic> navigateToHomeView([
     int? routerId,
     bool preventDuplicates = true,
@@ -72,14 +86,28 @@ extension NavigatorStateExtension on _i5.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToStartupView([
+  Future<dynamic> navigateToStarupView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return navigateTo<dynamic>(Routes.startupView,
+    return navigateTo<dynamic>(Routes.starupView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToLoginView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.loginView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -100,14 +128,28 @@ extension NavigatorStateExtension on _i5.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithStartupView([
+  Future<dynamic> replaceWithStarupView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return replaceWith<dynamic>(Routes.startupView,
+    return replaceWith<dynamic>(Routes.starupView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithLoginView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.loginView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
