@@ -20,8 +20,11 @@ PaymentSettingModel _$PaymentSettingModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PaymentSettingModel {
-  String? get name => throw _privateConstructorUsedError;
-  String? get id => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
+  String get title_en => throw _privateConstructorUsedError;
+  String? get description_en => throw _privateConstructorUsedError;
+  String? get code => throw _privateConstructorUsedError;
+  String? get title_fr => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +38,12 @@ abstract class $PaymentSettingModelCopyWith<$Res> {
           PaymentSettingModel value, $Res Function(PaymentSettingModel) then) =
       _$PaymentSettingModelCopyWithImpl<$Res, PaymentSettingModel>;
   @useResult
-  $Res call({String? name, String? id});
+  $Res call(
+      {int id,
+      String title_en,
+      String? description_en,
+      String? code,
+      String? title_fr});
 }
 
 /// @nodoc
@@ -51,17 +59,32 @@ class _$PaymentSettingModelCopyWithImpl<$Res, $Val extends PaymentSettingModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? id = freezed,
+    Object? id = null,
+    Object? title_en = null,
+    Object? description_en = freezed,
+    Object? code = freezed,
+    Object? title_fr = freezed,
   }) {
     return _then(_value.copyWith(
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      title_en: null == title_en
+          ? _value.title_en
+          : title_en // ignore: cast_nullable_to_non_nullable
+              as String,
+      description_en: freezed == description_en
+          ? _value.description_en
+          : description_en // ignore: cast_nullable_to_non_nullable
+              as String?,
+      code: freezed == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String?,
+      title_fr: freezed == title_fr
+          ? _value.title_fr
+          : title_fr // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -75,7 +98,12 @@ abstract class _$$PaymentSettingModelImplCopyWith<$Res>
       __$$PaymentSettingModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? name, String? id});
+  $Res call(
+      {int id,
+      String title_en,
+      String? description_en,
+      String? code,
+      String? title_fr});
 }
 
 /// @nodoc
@@ -89,17 +117,32 @@ class __$$PaymentSettingModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? id = freezed,
+    Object? id = null,
+    Object? title_en = null,
+    Object? description_en = freezed,
+    Object? code = freezed,
+    Object? title_fr = freezed,
   }) {
     return _then(_$PaymentSettingModelImpl(
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      title_en: null == title_en
+          ? _value.title_en
+          : title_en // ignore: cast_nullable_to_non_nullable
+              as String,
+      description_en: freezed == description_en
+          ? _value.description_en
+          : description_en // ignore: cast_nullable_to_non_nullable
+              as String?,
+      code: freezed == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String?,
+      title_fr: freezed == title_fr
+          ? _value.title_fr
+          : title_fr // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -108,19 +151,31 @@ class __$$PaymentSettingModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$PaymentSettingModelImpl extends _PaymentSettingModel {
-  _$PaymentSettingModelImpl({this.name, this.id}) : super._();
+  _$PaymentSettingModelImpl(
+      {required this.id,
+      required this.title_en,
+      this.description_en,
+      this.code,
+      this.title_fr})
+      : super._();
 
   factory _$PaymentSettingModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$PaymentSettingModelImplFromJson(json);
 
   @override
-  final String? name;
+  final int id;
   @override
-  final String? id;
+  final String title_en;
+  @override
+  final String? description_en;
+  @override
+  final String? code;
+  @override
+  final String? title_fr;
 
   @override
   String toString() {
-    return 'PaymentSettingModel(name: $name, id: $id)';
+    return 'PaymentSettingModel(id: $id, title_en: $title_en, description_en: $description_en, code: $code, title_fr: $title_fr)';
   }
 
   @override
@@ -128,13 +183,20 @@ class _$PaymentSettingModelImpl extends _PaymentSettingModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PaymentSettingModelImpl &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.id, id) || other.id == id));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.title_en, title_en) ||
+                other.title_en == title_en) &&
+            (identical(other.description_en, description_en) ||
+                other.description_en == description_en) &&
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.title_fr, title_fr) ||
+                other.title_fr == title_fr));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, id);
+  int get hashCode =>
+      Object.hash(runtimeType, id, title_en, description_en, code, title_fr);
 
   @JsonKey(ignore: true)
   @override
@@ -152,17 +214,27 @@ class _$PaymentSettingModelImpl extends _PaymentSettingModel {
 }
 
 abstract class _PaymentSettingModel extends PaymentSettingModel {
-  factory _PaymentSettingModel({final String? name, final String? id}) =
-      _$PaymentSettingModelImpl;
+  factory _PaymentSettingModel(
+      {required final int id,
+      required final String title_en,
+      final String? description_en,
+      final String? code,
+      final String? title_fr}) = _$PaymentSettingModelImpl;
   _PaymentSettingModel._() : super._();
 
   factory _PaymentSettingModel.fromJson(Map<String, dynamic> json) =
       _$PaymentSettingModelImpl.fromJson;
 
   @override
-  String? get name;
+  int get id;
   @override
-  String? get id;
+  String get title_en;
+  @override
+  String? get description_en;
+  @override
+  String? get code;
+  @override
+  String? get title_fr;
   @override
   @JsonKey(ignore: true)
   _$$PaymentSettingModelImplCopyWith<_$PaymentSettingModelImpl> get copyWith =>
