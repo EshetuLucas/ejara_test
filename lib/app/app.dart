@@ -9,6 +9,7 @@ import 'package:ejara_test/services/payment_service.dart';
 
 import '../api/payment/payment_apis.dart';
 import 'package:ejara_test/ui/bottom_sheets/wallets/wallets_sheet.dart';
+import 'package:ejara_test/ui/views/new_payment_setting/new_payment_setting_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -16,7 +17,8 @@ import 'package:ejara_test/ui/bottom_sheets/wallets/wallets_sheet.dart';
     MaterialRoute(page: HomeView),
     MaterialRoute(page: StarupView),
     MaterialRoute(page: LoginView),
-    // @stacked-route
+    MaterialRoute(page: NewPaymentSettingView),
+// @stacked-route
   ],
   dependencies: [
     LazySingleton(classType: BottomSheetService),
