@@ -27,7 +27,7 @@ class WalletsSheet extends StatelessWidget {
   ) {
     final viewModel = Provider.of<WalletsSheetModel>(context, listen: true);
     return StatefulWrapper(
-      onInit: () => viewModel.getPaymentSettingsByType(request.data),
+      onInit: () => viewModel.onInit(request.data),
       onDispose: viewModel.disposeViewModel,
       child: Container(
         decoration: const BoxDecoration(
@@ -74,7 +74,7 @@ class WalletsSheet extends StatelessWidget {
                 verticalSpaceMedium,
                 NotFoundWidget(
                   title: 'Unable to fetch payment settings.',
-                  onTap: () => viewModel.getPaymentSettingsByType(request.data),
+                  onTap: viewModel.getPaymentSettingsByType,
                 ),
                 verticalSpaceMedium,
               ] else ...[
@@ -107,7 +107,7 @@ class WalletsSheet extends StatelessWidget {
                   padding: appSymmetricHorizontalPadding,
                   child: AppButton(
                     backgroundColor: kcSecondaryColor.withOpacity(0.2),
-                    title: '+ Another mobile money method',
+                    title: '+ Another ${request.title} method',
                     textColor: kcSecondaryColor,
                     onTap: viewModel.onAddAnotherMethod,
                     enablebuttonTextStyle: ktsLargBold,
@@ -138,7 +138,6 @@ class WalletsSheet extends StatelessWidget {
 
 class _PaymentSettings extends StatelessWidget {
   const _PaymentSettings({
-    super.key,
     required this.viewModel,
   });
 

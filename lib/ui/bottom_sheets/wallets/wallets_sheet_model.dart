@@ -18,8 +18,6 @@ class WalletsSheetModel extends ChangeNotifier {
   bool _isBusy = false;
   bool get isBusy => _isBusy;
 
-  PaymentSettingModel? _selectedPaymentSetting;
-  PaymentSettingModel get selectedPaymentSetting => _selectedPaymentSetting!;
   bool get hasSelectedPaymentSetting => _selectedPaymentSetting != null;
 
   bool isPaymentSettingSelected(int paymentSettingId) =>
@@ -28,18 +26,21 @@ class WalletsSheetModel extends ChangeNotifier {
 
   bool get hasPaymentSettings => paymentSettings.isNotEmpty;
 
-  void onSelectPaymentSetting(PaymentSettingModel paymentSetting) {
-    _selectedPaymentSetting = paymentSetting;
-    notifyListeners();
-  }
+  late PaymentMethodModel _paymentMethod;
+
+  PaymentSettingModel? _selectedPaymentSetting;
+  PaymentSettingModel get selectedPaymentSetting => _selectedPaymentSetting!;
 
   List<PaymentSettingModel> _paymentSettings = [];
   List<PaymentSettingModel> get paymentSettings =>
       isBusy ? fakePaymentSettings : _paymentSettings;
 
-  Future<void> getPaymentSettingsByType(
-    PaymentMethodModel paymentMethod,
-  ) async {
+  void onInit(PaymentMethodModel paymentMethodModel) {
+    _paymentMethod = paymentMethodModel;
+    getPaymentSettingsByType();
+  }
+
+  Future<void> getPaymentSettingsByType() async {
     setError(false);
     setBusy(true);
     try {
@@ -48,7 +49,7 @@ class WalletsSheetModel extends ChangeNotifier {
       await _paymentService.getPaymentSettingsByType(
         countryCode: 'CM',
         transactionType: 'buy',
-        paymentTypeId: paymentMethod.id.toString(),
+        paymentTypeId: _paymentMethod.id.toString(),
       );
     } catch (e) {
       setError(true);
@@ -56,6 +57,11 @@ class WalletsSheetModel extends ChangeNotifier {
     } finally {
       setBusy(false);
     }
+  }
+
+  void onSelectPaymentSetting(PaymentSettingModel paymentSetting) {
+    _selectedPaymentSetting = paymentSetting;
+    notifyListeners();
   }
 
   void setError(bool value) {
@@ -72,8 +78,6 @@ class WalletsSheetModel extends ChangeNotifier {
     _paymentSettings = [];
   }
 
-  void onConfirm() {}
-
   void setBusy(bool value) {
     _isBusy = value;
     notifyListeners();
@@ -83,6 +87,7 @@ class WalletsSheetModel extends ChangeNotifier {
     _navigationService.navigateTo(
       Routes.newPaymentSettingView,
       preventDuplicates: false,
+      arguments: NewPaymentSettingViewArguments(paymentMethod: _paymentMethod),
     );
   }
 }
