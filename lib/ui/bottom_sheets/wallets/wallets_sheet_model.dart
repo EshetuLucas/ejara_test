@@ -12,9 +12,6 @@ class WalletsSheetModel extends ChangeNotifier {
   final _paymentService = locator<PaymentService>();
   final _navigationService = locator<NavigationService>();
 
-  String _errorText = '';
-  String get errorText => _errorText;
-
   bool _hasError = false;
   bool get hasError => _hasError;
 
@@ -40,9 +37,10 @@ class WalletsSheetModel extends ChangeNotifier {
       isBusy ? fakePaymentSettings : _paymentSettings;
 
   Future<void> getPaymentSettingsByType(
-      PaymentMethodModel paymentMethod) async {
+    PaymentMethodModel paymentMethod,
+  ) async {
+    setError(false);
     setBusy(true);
-    setError(true);
     try {
       /// Using const countryCode and transactionType for testing purposes
       // _paymentMethods =
@@ -74,11 +72,6 @@ class WalletsSheetModel extends ChangeNotifier {
   }
 
   void onConfirm() {}
-
-  void setErrorText(String value) {
-    _errorText = value;
-    notifyListeners();
-  }
 
   void setBusy(bool value) {
     _isBusy = value;
