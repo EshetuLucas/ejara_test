@@ -152,8 +152,8 @@ class WalletsSheet extends StatelessWidget {
               child: AppButton(
                 backgroundColor: kcSecondaryColor.withOpacity(0.2),
                 title: '+ Another mobile money method',
-                textColor: kcPrimaryColor,
-                onTap: viewModel.onConfirm,
+                textColor: kcSecondaryColor,
+                onTap: viewModel.onAddAnotherMethod,
                 enablebuttonTextStyle: ktsLargBold,
               ),
             ),

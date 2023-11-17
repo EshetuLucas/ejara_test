@@ -1,5 +1,6 @@
 import 'package:ejara_test/app/app.locator.dart';
 import 'package:ejara_test/app/app.logger.dart';
+import 'package:ejara_test/app/app.router.dart';
 import 'package:ejara_test/data_model/payment_method/payment_method.dart';
 import 'package:ejara_test/data_model/payment_setting/payment_setting.dart';
 import 'package:ejara_test/services/payment_service.dart';
@@ -13,16 +14,6 @@ class WalletsSheetModel extends ChangeNotifier {
 
   String _errorText = '';
   String get errorText => _errorText;
-
-  void setErrorText(String value) {
-    _errorText = value;
-    notifyListeners();
-  }
-
-  void setBusy(bool value) {
-    _isBusy = value;
-    notifyListeners();
-  }
 
   bool _hasError = false;
   bool get hasError => _hasError;
@@ -83,4 +74,21 @@ class WalletsSheetModel extends ChangeNotifier {
   }
 
   void onConfirm() {}
+
+  void setErrorText(String value) {
+    _errorText = value;
+    notifyListeners();
+  }
+
+  void setBusy(bool value) {
+    _isBusy = value;
+    notifyListeners();
+  }
+
+  void onAddAnotherMethod() async {
+    _navigationService.navigateTo(
+      Routes.newPaymentSettingView,
+      preventDuplicates: false,
+    );
+  }
 }
