@@ -1,6 +1,7 @@
 import 'package:ejara_test/app/app.bottomsheets.dart';
+import 'package:ejara_test/ui/bottom_sheets/wallets/wallets_sheet_model.dart';
 import 'package:ejara_test/ui/views/home/home_viewmodel.dart';
-import 'package:ejara_test/ui/views/startup/startup_viewmodel.dart';
+import 'package:ejara_test/ui/views/login/login_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:ejara_test/app/app.locator.dart';
 import 'package:ejara_test/app/app.router.dart';
@@ -27,7 +28,11 @@ class MyApp extends StatelessWidget {
           create: (context) => HomeViewModel(),
         ),
         ChangeNotifierProvider(
-          create: (context) => StartupViewModel(),
+          create: (context) => LoginViewModel(),
+        ),
+        ChangeNotifierProvider(
+          lazy: false,
+          create: (context) => WalletsSheetModel(),
         )
       ],
       child: MaterialApp(
@@ -40,7 +45,7 @@ class MyApp extends StatelessWidget {
                 bodyColor: Colors.black,
               ),
         ),
-        initialRoute: Routes.startupView,
+        initialRoute: Routes.loginView,
         onGenerateRoute: StackedRouter().onGenerateRoute,
         navigatorKey: StackedService.navigatorKey,
         navigatorObservers: [
