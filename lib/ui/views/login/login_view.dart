@@ -33,6 +33,7 @@ class LoginView extends StatelessWidget {
                     ),
                     verticalSpaceSmall,
                     AppButton(
+                      key: const Key('login'),
                       busy: viewModel.isBusy,
                       title: 'Login',
                       onTap: viewModel.login,
