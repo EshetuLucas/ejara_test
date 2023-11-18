@@ -27,6 +27,7 @@ class WalletsSheet extends StatelessWidget {
   ) {
     final viewModel = Provider.of<WalletsSheetModel>(context, listen: true);
     return StatefulWrapper(
+      key: const Key('WalletsSheet'),
       onInit: () => viewModel.onInit(request.data),
       onDispose: viewModel.disposeViewModel,
       child: Container(
@@ -58,6 +59,7 @@ class WalletsSheet extends StatelessWidget {
                     ),
                     horizontalSpaceSmall,
                     InkWell(
+                      key: const Key('closeBottomSheet'),
                       onTap: viewModel.onClose,
                       child: const Icon(
                         Icons.close,
@@ -106,6 +108,7 @@ class WalletsSheet extends StatelessWidget {
                 Padding(
                   padding: appSymmetricHorizontalPadding,
                   child: AppButton(
+                    key: const Key('anotherPaymentMethodButton'),
                     backgroundColor: kcSecondaryColor.withOpacity(0.2),
                     title: '+ Another ${request.title} method',
                     textColor: kcSecondaryColor,
