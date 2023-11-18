@@ -24,22 +24,25 @@ class HomeView extends StatelessWidget {
       key: const Key('homeView'),
       onInit: viewModel.onInit,
       child: Scaffold(
-        body: SafeArea(
-          child: Padding(
-            padding: appSymmetricHorizontalPadding,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const _PaymentMethod(),
-                if (viewModel.hasError) ...[
-                  verticalSpaceMedium,
-                  NotFoundWidget(
-                    title: 'Unable to fetch payment methods.',
-                    onTap: viewModel.getPaymentMethods,
-                  ),
-                ] else
-                  const _SelectPaymentMethods(),
-              ],
+        body: AbsorbPointer(
+          absorbing: viewModel.isBusy,
+          child: SafeArea(
+            child: Padding(
+              padding: appSymmetricHorizontalPadding,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const _PaymentMethod(),
+                  if (viewModel.hasError) ...[
+                    verticalSpaceMedium,
+                    NotFoundWidget(
+                      title: 'Unable to fetch payment methods.',
+                      onTap: viewModel.getPaymentMethods,
+                    ),
+                  ] else
+                    const _SelectPaymentMethods(),
+                ],
+              ),
             ),
           ),
         ),
