@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
   setupBottomSheetUi();
   await dotenv.load();
