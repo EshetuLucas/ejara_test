@@ -23,6 +23,7 @@ class NewPaymentSettingView extends StatelessWidget {
     final viewModel =
         Provider.of<NewPaymentSettingViewModel>(context, listen: false);
     return Scaffold(
+      key: const Key('newPaymentSetting'),
       body: SafeArea(
         child: Padding(
           padding: appSymmetricHorizontalPadding,
@@ -30,6 +31,7 @@ class NewPaymentSettingView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               InkWell(
+                key: const Key('close'),
                 onTap: viewModel.onClose,
                 child: const IconBuilder(
                   iconData: Icons.close,
