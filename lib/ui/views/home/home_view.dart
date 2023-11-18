@@ -21,6 +21,7 @@ class HomeView extends StatelessWidget {
     final viewModel = Provider.of<HomeViewModel>(context, listen: true);
 
     return StatefulWrapper(
+      key: const Key('homeView'),
       onInit: viewModel.onInit,
       child: Scaffold(
         body: SafeArea(
@@ -73,6 +74,7 @@ class _SelectPaymentMethods extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             final paymentMethod = viewModel.paymentMethods[index];
             return InkWell(
+              key: Key(paymentMethod.id.toString()),
               onTap: () => viewModel.showBottomSheet(paymentMethod),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
