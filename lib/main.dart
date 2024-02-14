@@ -1,16 +1,16 @@
 import 'package:ejara_test/app/app.bottomsheets.dart';
+import 'package:ejara_test/app/locator.dart';
 import 'package:ejara_test/ui/views/providers.dart';
 import 'package:flutter/material.dart';
-import 'package:ejara_test/app/app.locator.dart';
 import 'package:ejara_test/app/app.router.dart';
 import 'package:ejara_test/ui/common/app_colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:provider/provider.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setupLocator();
+  setupAppLocator();
   setupBottomSheetUi();
   await dotenv.load();
   runApp(const MyApp());
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return MultiBlocProvider(
       providers: providers,
       child: MaterialApp(
         theme: Theme.of(context).copyWith(

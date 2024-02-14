@@ -1,5 +1,6 @@
 import 'package:ejara_test/app/app.bottomsheets.dart';
 import 'package:ejara_test/data_model/payment_method/payment_method.dart';
+import 'package:ejara_test/ui/views/home/bloc/home_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ejara_test/app/app.locator.dart';
 import 'package:ejara_test/ui/views/home/home_viewmodel.dart';
@@ -8,7 +9,7 @@ import 'package:mockito/mockito.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
-  HomeViewModel _getModel() => HomeViewModel();
+  HomeBloc _homeBloc() => HomeBloc();
 
   group('HomeViewmodelTest -', () {
     setUp(() => registerServices());
@@ -18,14 +19,14 @@ void main() {
       'setError -',
       () {
         test('When called with false, should set error value to [false]', () {
-          final viewModel = _getModel();
-          viewModel.setError(false);
-          expect(viewModel.hasError, false);
+          final homeBloc = _homeBloc();
+          homeBloc.add(PaymentMethodsLoaded());
+          expect(homeBloc.hasError, false);
         });
         test('When called with true, should set error value to [true]', () {
-          final viewModel = _getModel();
-          viewModel.setError(true);
-          expect(viewModel.hasError, true);
+          final homeBloc = _homeBloc();
+          homeBloc.setError(true);
+          expect(homeBloc.hasError, true);
         });
       },
     );
@@ -34,14 +35,14 @@ void main() {
       'setBusy -',
       () {
         test('When called with false, should set busy value to [false]', () {
-          final viewModel = _getModel();
-          viewModel.setBusy(false);
-          expect(viewModel.isBusy, false);
+          final homeBloc = _homeBloc();
+          homeBloc.setBusy(false);
+          expect(homeBloc.isBusy, false);
         });
         test('When called with true, should set busy value to [true]', () {
-          final viewModel = _getModel();
-          viewModel.setBusy(true);
-          expect(viewModel.isBusy, true);
+          final homeBloc = _homeBloc();
+          homeBloc.setBusy(true);
+          expect(homeBloc.isBusy, true);
         });
       },
     );
@@ -54,8 +55,8 @@ void main() {
             () {
           final _paymentService = getAndRegisterPaymentService();
 
-          final viewModel = _getModel();
-          viewModel.getPaymentMethods();
+          final homeBloc = _homeBloc();
+          homeBloc.getPaymentMethods();
           verify(
             _paymentService.getPaymentMethods(
                 countryCode: "CM", transactionType: "buy"),
@@ -66,16 +67,16 @@ void main() {
             'When called with country code and transactionType and fail, should set error value true',
             () {
           getAndRegisterPaymentService(success: false);
-          final viewModel = _getModel();
-          viewModel.getPaymentMethods();
-          expect(viewModel.hasError, true);
+          final homeBloc = _homeBloc();
+          homeBloc.getPaymentMethods();
+          expect(homeBloc.hasError, true);
         });
         test(
             'When called with country code and transactionType and success, should set error value false',
             () {
-          final viewModel = _getModel();
-          viewModel.getPaymentMethods();
-          expect(viewModel.hasError, false);
+          final homeBloc = _homeBloc();
+          homeBloc.getPaymentMethods();
+          expect(homeBloc.hasError, false);
         });
       },
     );
@@ -84,9 +85,9 @@ void main() {
       test('When called, should show custom bottom sheet using wallet variant',
           () async {
         final bottomSheetService = getAndRegisterBottomSheetService();
-        final viewModel = _getModel();
+        final homeBloc = _homeBloc();
         PaymentMethodModel paymentMethod = fakePaymentMethods.first;
-        viewModel.showBottomSheet(paymentMethod);
+        homeBloc.showBottomSheet(paymentMethod);
         verify(
           bottomSheetService.showCustomSheet(
             variant: BottomSheetType.wallets,

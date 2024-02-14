@@ -1,12 +1,12 @@
 import 'package:ejara_test/api/user/user_apis.dart';
-import 'package:ejara_test/app/app.locator.dart';
 import 'package:ejara_test/app/app.logger.dart';
+import 'package:ejara_test/app/locator.dart';
 
 import '../data_model/user/user_model.dart';
 
 class UserService {
   final log = getLogger('UserService');
-  final _userApis = locator<UserApis>();
+  final _userApis = appLocator<UserApis>();
 
   bool get hasUser => _currentUser != null;
 

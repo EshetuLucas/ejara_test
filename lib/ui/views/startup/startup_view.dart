@@ -14,7 +14,9 @@ class StarupView extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
-    final viewModel = Provider.of<StarupViewModel>(context, listen: true);
+    final viewModel = context.watch()<StarupViewModel>();
+
+    //Provider.of<StarupViewModel>(context, listen: true);
     return StatefulWrapper(
       onInit: viewModel.runStarupLogic,
       child: Scaffold(

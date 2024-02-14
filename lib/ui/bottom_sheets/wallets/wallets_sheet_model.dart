@@ -1,18 +1,20 @@
-import 'package:ejara_test/app/app.locator.dart';
 import 'package:ejara_test/app/app.logger.dart';
 import 'package:ejara_test/app/app.router.dart';
+import 'package:ejara_test/app/locator.dart';
 import 'package:ejara_test/data_model/payment_method/payment_method.dart';
 import 'package:ejara_test/data_model/payment_setting/payment_setting.dart';
 import 'package:ejara_test/services/payment_service.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class WalletsSheetModel extends ChangeNotifier {
+class WalletsSheetModel extends Cubit {
   final log = getLogger('WalletsSheetModel');
-  final _paymentService = locator<PaymentService>();
-  final _navigationService = locator<NavigationService>();
+  final _paymentService = appLocator<PaymentService>();
+  final _navigationService = appLocator<NavigationService>();
 
   bool _hasError = false;
+
+  WalletsSheetModel(super.initialState);
   bool get hasError => _hasError;
 
   bool _isBusy = false;
@@ -61,12 +63,12 @@ class WalletsSheetModel extends ChangeNotifier {
 
   void onSelectPaymentSetting(PaymentSettingModel paymentSetting) {
     _selectedPaymentSetting = paymentSetting;
-    notifyListeners();
+    // notifyListeners();
   }
 
   void setError(bool value) {
     _hasError = value;
-    notifyListeners();
+    // notifyListeners();
   }
 
   void onClose() {
@@ -80,7 +82,7 @@ class WalletsSheetModel extends ChangeNotifier {
 
   void setBusy(bool value) {
     _isBusy = value;
-    notifyListeners();
+    // notifyListeners();
   }
 
   void onAddAnotherMethod() async {

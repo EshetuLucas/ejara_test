@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:ejara_test/api/common/api_consts.dart';
-import 'package:ejara_test/app/app.locator.dart';
+import 'package:ejara_test/app/locator.dart';
 import 'package:ejara_test/data_model/payment_method/payment_method.dart';
 import 'package:ejara_test/data_model/payment_setting/payment_setting.dart';
 import 'package:ejara_test/data_model/user/user_model.dart';
@@ -11,7 +11,7 @@ import '../../app/app.logger.dart';
 
 class ApiClient {
   final log = getLogger('ApiClient');
-  final _userService = locator<UserService>();
+  final _userService = appLocator<UserService>();
   final Dio dio = Dio(BaseOptions(baseUrl: ''));
   Map<String, String>? headers;
 

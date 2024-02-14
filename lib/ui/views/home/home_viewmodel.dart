@@ -1,18 +1,20 @@
 import 'package:ejara_test/app/app.bottomsheets.dart';
-import 'package:ejara_test/app/app.locator.dart';
 import 'package:ejara_test/app/app.logger.dart';
+import 'package:ejara_test/app/locator.dart';
 import 'package:ejara_test/data_model/payment_method/payment_method.dart';
 import 'package:ejara_test/services/payment_service.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class HomeViewModel extends ChangeNotifier {
+class HomeViewModel extends Cubit {
   final log = getLogger('HomeViewModel');
-  final _bottomSheetService = locator<BottomSheetService>();
+  final _bottomSheetService = appLocator<BottomSheetService>();
 
-  final _paymentService = locator<PaymentService>();
+  final _paymentService = appLocator<PaymentService>();
 
   bool _hasError = false;
+
+  HomeViewModel(super.initialState);
   bool get hasError => _hasError;
 
   bool _isBusy = false;
@@ -28,12 +30,12 @@ class HomeViewModel extends ChangeNotifier {
 
   void setError(bool value) {
     _hasError = value;
-    notifyListeners();
+    //notifyListeners();
   }
 
   void setBusy(bool value) {
     _isBusy = value;
-    notifyListeners();
+    // notifyListeners();
   }
 
   Future<void> getPaymentMethods() async {

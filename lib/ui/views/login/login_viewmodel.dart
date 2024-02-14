@@ -1,16 +1,19 @@
 import 'package:ejara_test/app/app.logger.dart';
+import 'package:ejara_test/app/locator.dart';
 import 'package:ejara_test/services/user_service.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:ejara_test/app/app.locator.dart';
+
 import 'package:ejara_test/app/app.router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class LoginViewModel extends ChangeNotifier {
+class LoginViewModel extends Cubit {
   final log = getLogger('StartupViewModel');
-  final _navigationService = locator<NavigationService>();
-  final _userService = locator<UserService>();
+  final _navigationService = appLocator<NavigationService>();
+  final _userService = appLocator<UserService>();
 
   String _errorText = '';
+
+  LoginViewModel(super.initialState);
   String get errorText => _errorText;
 
   bool _isBusy = false;
@@ -40,16 +43,27 @@ class LoginViewModel extends ChangeNotifier {
 
   void setErrorText(String value) {
     _errorText = value;
-    notifyListeners();
+    // notifyListeners();
   }
 
   void setBusy(bool value) {
     _isBusy = value;
-    notifyListeners();
+    //notifyListeners();
   }
 
   void setError(bool value) {
     _hasError = value;
-    notifyListeners();
+    //notifyListeners();
+  }
+
+  int size = 30;
+
+  List<int> elements = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  double map(int index) {
+    elements.sort(
+      (a, b) => a.compareTo(b),
+    );
+    return size / elements.length - 1;
   }
 }

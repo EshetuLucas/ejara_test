@@ -1,15 +1,15 @@
+import 'package:ejara_test/data_model/payment_method/payment_method.dart';
 import 'package:ejara_test/ui/common/app_text_styles.dart';
 import 'package:ejara_test/ui/common/widgets/icon_builder.dart';
 import 'package:ejara_test/ui/common/widgets/not_found_widget.dart';
 import 'package:ejara_test/ui/common/widgets/ra_skeleton_loader.dart';
 import 'package:ejara_test/ui/common/widgets/stateful_wrapper.dart';
+import 'package:ejara_test/ui/views/home/bloc/home_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ejara_test/ui/common/app_colors.dart';
 import 'package:ejara_test/ui/common/ui_helpers.dart';
-
-import 'home_viewmodel.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -18,123 +18,130 @@ class HomeView extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
-    final viewModel = Provider.of<HomeViewModel>(context, listen: true);
-
+    final homeBloc = context.read<HomeBloc>();
     return StatefulWrapper(
       key: const Key('homeView'),
-      onInit: viewModel.onInit,
-      child: Scaffold(
-        body: AbsorbPointer(
-          absorbing: viewModel.isBusy,
-          child: SafeArea(
-            child: Padding(
-              padding: appSymmetricHorizontalPadding,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const _PaymentMethod(),
-                  if (viewModel.hasError) ...[
-                    verticalSpaceMedium,
-                    NotFoundWidget(
-                      title: 'Unable to fetch payment methods.',
-                      onTap: viewModel.getPaymentMethods,
-                    ),
-                  ] else
-                    const _SelectPaymentMethods(),
-                ],
+      onInit: () => homeBloc.add(PaymentMethodsLoaded()),
+      child: BlocConsumer<HomeBloc, HomeState>(
+        bloc: homeBloc,
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Scaffold(
+            body: AbsorbPointer(
+              absorbing: state is PaymentMethodLoading,
+              child: SafeArea(
+                child: Padding(
+                  padding: appSymmetricHorizontalPadding,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _PaymentMethod(state is PaymentMethodLoading),
+                      if (state is PaymentMethodFailure) ...[
+                        verticalSpaceMedium,
+                        NotFoundWidget(
+                          title: state.errorMessage,
+                          onTap: () => homeBloc.add(PaymentMethodsLoaded()),
+                        ),
+                      ] else
+                        Column(
+                         
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            verticalSpaceMedium,
+                            const Text(
+                              'Select a payment methods',
+                              style: ktsTitle,
+                            ),
+                            verticalSpaceSmall,
+                            ListView.separated(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              shrinkWrap: true,
+                              itemCount: state is PaymentMethodSuccess
+                                  ? state.paymentMethods.length
+                                  : fakePaymentMethods.length,
+                              separatorBuilder:
+                                  (BuildContext context, int index) {
+                                return const Divider();
+                              },
+                              itemBuilder: (BuildContext context, int index) {
+                                final isLoading = state is PaymentMethodLoading;
+                                final paymentMethod =
+                                    state is PaymentMethodSuccess
+                                        ? state.paymentMethods[index]
+                                        : fakePaymentMethods[index];
+                                return InkWell(
+                                  key: Key(paymentMethod.id.toString()),
+                                  //onTap: () => viewModel.showBottomSheet(paymentMethod),
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 4),
+                                    child: Row(
+                                      children: [
+                                        RASkeletonLoader(
+                                          radius: 100,
+                                          loading: isLoading,
+                                          child: const IconBuilder(
+                                            iconData: CupertinoIcons.creditcard,
+                                          ),
+                                        ),
+                                        horizontalSpace(12),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            RASkeletonLoader(
+                                              loading: isLoading,
+                                              child: Text(
+                                                paymentMethod.title_en,
+                                                style: ktsMedium.copyWith(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ),
+                                            if (isLoading) verticalSpaceTiny,
+                                            RASkeletonLoader(
+                                              loading: isLoading,
+                                              child: Text(
+                                                paymentMethod.description_en ??
+                                                    '',
+                                                style: ktsSmall.copyWith(
+                                                  fontSize: 10,
+                                                  color: kcMediumGrey,
+                                                  fontWeight: FontWeight.w300,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
 }
 
-class _SelectPaymentMethods extends StatelessWidget {
-  const _SelectPaymentMethods();
-
-  @override
-  Widget build(BuildContext context) {
-    final viewModel = Provider.of<HomeViewModel>(context, listen: true);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        verticalSpaceMedium,
-        const Text(
-          'Select a payment methods',
-          style: ktsTitle,
-        ),
-        verticalSpaceSmall,
-        ListView.separated(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          shrinkWrap: true,
-          itemCount: viewModel.paymentMethods.length,
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider();
-          },
-          itemBuilder: (BuildContext context, int index) {
-            final paymentMethod = viewModel.paymentMethods[index];
-            return InkWell(
-              key: Key(paymentMethod.id.toString()),
-              onTap: () => viewModel.showBottomSheet(paymentMethod),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Row(
-                  children: [
-                    RASkeletonLoader(
-                      radius: 100,
-                      loading: viewModel.isBusy,
-                      child: const IconBuilder(
-                        iconData: CupertinoIcons.creditcard,
-                      ),
-                    ),
-                    horizontalSpace(12),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RASkeletonLoader(
-                          loading: viewModel.isBusy,
-                          child: Text(
-                            paymentMethod.title_en,
-                            style: ktsMedium.copyWith(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                        if (viewModel.isBusy) verticalSpaceTiny,
-                        RASkeletonLoader(
-                          loading: viewModel.isBusy,
-                          child: Text(
-                            paymentMethod.description_en ?? '',
-                            style: ktsSmall.copyWith(
-                              fontSize: 10,
-                              color: kcMediumGrey,
-                              fontWeight: FontWeight.w300,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
-      ],
-    );
-  }
-}
-
 class _PaymentMethod extends StatelessWidget {
-  const _PaymentMethod();
+  const _PaymentMethod(this.isLoading);
+
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<HomeViewModel>(context, listen: true);
     return Column(
       children: [
         verticalSpaceTiny,
@@ -155,7 +162,7 @@ class _PaymentMethod extends StatelessWidget {
           ),
           child: RASkeletonLoader(
             radius: 16,
-            loading: viewModel.isBusy,
+            loading: isLoading,
             child: Column(
               children: [
                 verticalSpaceMedium,

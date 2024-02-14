@@ -4,9 +4,9 @@
 // StackedBottomsheetGenerator
 // **************************************************************************
 
+import 'package:ejara_test/app/locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import 'app.locator.dart';
 import '../ui/bottom_sheets/wallets/wallets_sheet.dart';
 
 enum BottomSheetType {
@@ -14,7 +14,7 @@ enum BottomSheetType {
 }
 
 void setupBottomSheetUi() {
-  final bottomsheetService = locator<BottomSheetService>();
+  final bottomsheetService = appLocator<BottomSheetService>();
 
   final Map<BottomSheetType, SheetBuilder> builders = {
     BottomSheetType.wallets: (context, request, completer) =>

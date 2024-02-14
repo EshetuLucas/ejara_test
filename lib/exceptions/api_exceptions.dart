@@ -1,5 +1,5 @@
-import 'package:ejara_test/app/app.locator.dart';
 import 'package:ejara_test/app/app.router.dart';
+import 'package:ejara_test/app/locator.dart';
 import 'package:ejara_test/services/user_service.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -46,8 +46,8 @@ class ServiceUnavailableException extends ApiException {
 
 class ApiErrorHandler {
   static Exception handleError(int? statusCode) {
-    final _navigationService = locator<NavigationService>();
-    final _userService = locator<UserService>();
+    final _navigationService = appLocator<NavigationService>();
+    final _userService = appLocator<UserService>();
 
     if (statusCode != null) {
       switch (statusCode) {

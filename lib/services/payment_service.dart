@@ -1,12 +1,12 @@
 import 'package:ejara_test/api/payment/payment_apis.dart';
-import 'package:ejara_test/app/app.locator.dart';
 import 'package:ejara_test/app/app.logger.dart';
+import 'package:ejara_test/app/locator.dart';
 import 'package:ejara_test/data_model/payment_method/payment_method.dart';
 import 'package:ejara_test/data_model/payment_setting/payment_setting.dart';
 
 class PaymentService {
   final log = getLogger('PaymentService');
-  final _paymentApis = locator<PaymentApis>();
+  final _paymentApis = appLocator<PaymentApis>();
 
   Future<List<PaymentMethodModel>> getPaymentMethods({
     required String countryCode,
@@ -25,7 +25,6 @@ class PaymentService {
       paymentTypeId: paymentTypeId,
       countryCode: countryCode,
       transactionType: transactionType,
-      
     );
   }
 }
